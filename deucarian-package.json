@@ -1,0 +1,28 @@
+{
+  "packageId": "com.deucarian.viewer-shell",
+  "displayName": "Deucarian Viewer Shell",
+  "samplePolicy": "tool",
+  "operationalPackage": false,
+  "ownedCapabilities": [
+    "viewer-shell-experience"
+  ],
+  "runtimeAssemblies": [
+    "Deucarian.ViewerShell"
+  ],
+  "editorAssemblies": [],
+  "sampleAssemblies": [],
+  "testAssemblies": [
+    "Deucarian.ViewerShell.Tests.EditMode"
+  ],
+  "requiredDependencies": [
+    "com.deucarian.common",
+    "com.deucarian.theming",
+    "com.deucarian.ui",
+    "com.deucarian.viewer-rendering",
+    "com.unity.modules.uielements"
+  ],
+  "optionalVersionDefinedDependencies": [],
+  "allowedDirectDebugCalls": [],
+  "allowedDirectUnityObjectLifetimeCalls": [],
+  "expectedSamplesRoot": ""
+}

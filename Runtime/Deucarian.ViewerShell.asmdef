@@ -1,0 +1,20 @@
+{
+  "name": "Deucarian.ViewerShell",
+  "rootNamespace": "Deucarian.ViewerShell",
+  "references": [
+    "Deucarian.Common",
+    "Deucarian.Theming",
+    "Deucarian.UI",
+    "Deucarian.ViewerRendering",
+    "UnityEngine.UIElementsModule"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

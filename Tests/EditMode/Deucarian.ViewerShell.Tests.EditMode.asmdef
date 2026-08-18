@@ -1,0 +1,31 @@
+{
+  "name": "Deucarian.ViewerShell.Tests.EditMode",
+  "rootNamespace": "Deucarian.ViewerShell.Tests",
+  "references": [
+    "Deucarian.Common",
+    "Deucarian.Theming",
+    "Deucarian.UI",
+    "Deucarian.UI.Editor",
+    "Deucarian.ViewerRendering",
+    "Deucarian.ViewerShell",
+    "UnityEngine.UIElementsModule"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "noEngineReferences": false
+}

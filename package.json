@@ -1,0 +1,30 @@
+{
+  "name": "com.deucarian.viewer-shell",
+  "version": "0.1.0",
+  "displayName": "Deucarian Viewer Shell",
+  "description": "Reusable reference viewer shell with shared status, diagnostics, display settings, responsive chrome, theming, input boundaries, and menu coordination.",
+  "unity": "6000.0",
+  "author": {
+    "name": "Deucarian"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deucarian/Viewer-Shell.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "deucarian",
+    "viewer",
+    "shell",
+    "status",
+    "diagnostics",
+    "display-settings"
+  ],
+  "dependencies": {
+    "com.deucarian.common": "0.2.1",
+    "com.deucarian.theming": "1.0.5",
+    "com.deucarian.ui": "0.2.7",
+    "com.deucarian.viewer-rendering": "0.1.0",
+    "com.unity.modules.uielements": "1.0.0"
+  }
+}
