@@ -2,7 +2,7 @@
 
 Package ID: `com.deucarian.viewer-shell`
 
-Follow the canonical Deucarian governance documents in Package Registry.
+Follow the [canonical Deucarian governance documents](https://github.com/Deucarian/Package-Registry/blob/main/ARCHITECTURE.md).
 
 ## Ownership
 
