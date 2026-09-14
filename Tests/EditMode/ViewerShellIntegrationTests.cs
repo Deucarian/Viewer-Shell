@@ -147,6 +147,10 @@ namespace Deucarian.ViewerShell.Tests
 
             presenter.ApplyStatus(ViewerShellStatusSnapshot.Ready());
             Assert.AreEqual("Ready", state.text);
+            Assert.AreEqual(DisplayStyle.None, presenter.StatusCard.style.display.value);
+            root.SetActive(false);
+            root.SetActive(true);
+            Assert.AreEqual(DisplayStyle.None, presenter.StatusCard.style.display.value);
             Assert.AreEqual(string.Empty, message.text);
             Assert.AreEqual(DisplayStyle.None, spinner.style.display.value);
             Assert.IsTrue(
@@ -163,6 +167,7 @@ namespace Deucarian.ViewerShell.Tests
                 ViewerShellStatusSnapshot.Error("Network unavailable"));
             Assert.AreEqual("Something went wrong", state.text);
             Assert.AreEqual("Network unavailable", message.text);
+            Assert.AreEqual(DisplayStyle.Flex, presenter.StatusCard.style.display.value);
         }
 
         [Test]

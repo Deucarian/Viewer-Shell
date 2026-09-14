@@ -1,19 +1,19 @@
 # Deucarian Viewer Shell
 
 `com.deucarian.viewer-shell` is the reusable, consumer-neutral shell used by
-Deucarian 3D viewers. It provides the shared status toast, diagnostics menu,
+Deucarian 3D viewers. It provides the shared loading and error status, diagnostics menu,
 display-settings menu, responsive screen layout, theme composition, and input
 guard hooks. Products supply lifecycle state and the shared Viewer Rendering
 controller; they do not rebuild the shell UI.
 
-Current package version: `0.1.0`. Unity `6000.0` or newer is required.
+Current package version: `0.1.1`. Unity `6000.0` or newer is required.
 
 ## Ownership
 
 This package owns:
 
 - the reference viewer-shell profile and composition API;
-- loading, ready-toast, and error status presentation;
+- loading and error status presentation; Ready remains an internal lifecycle state;
 - the developer diagnostics body and consumer-neutral diagnostics text;
 - the standard Color faithful / Realistic display-settings view;
 - coordination of the two top-right menus through the package-owned UI menu

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 - Unreleased
+
+- Use shared UI control geometry and animated contrast feedback for display settings. Hide routine Ready success presentation while retaining lifecycle readiness, loading and errors. Remove the unused Common dependency.
+
 ## [0.1.0] - 2026-08-18
 
 - Added the consumer-neutral reference viewer-shell profile and installer.

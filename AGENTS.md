@@ -17,7 +17,6 @@ report/activity DTOs, markers, media, product branding, or WebGL host markup.
 
 ## Dependencies
 
-- Common owns the easing primitive used by the ready-toast fade.
 - Theming owns theme families, semantic color roles, typography, and visual
   styles.
 - UI owns UI Toolkit primitives, glass, morphing menu chrome, semantic depth,
