@@ -19,11 +19,16 @@ namespace Deucarian.ViewerShell
         private readonly Label heading;
         private readonly Label renderingLabel;
         private readonly Label cameraRelativeLightState;
+        private readonly DeucarianControlFeedback colorFeedback;
+        private readonly DeucarianControlFeedback realisticFeedback;
+        private readonly DeucarianControlFeedback lightFeedback;
         private bool suppressControlEvents;
         private bool disposed;
 
         public ViewerDisplaySettingsView(
-            IViewerRenderingController controller)
+            IViewerRenderingController controller,
+            MonoBehaviour animationHost = null,
+            Func<bool> shouldAnimate = null)
         {
             this.controller = controller ??
                 throw new ArgumentNullException(nameof(controller));
@@ -67,25 +72,17 @@ namespace Deucarian.ViewerShell
                 tooltip =
                     "Keep the key light aligned to the camera with a small local offset"
             };
-            CameraRelativeLightToggle.style.minHeight = 28f;
             CameraRelativeLightToggle.style.marginBottom = 8f;
-            CameraRelativeLightToggle.style.paddingLeft = 10f;
-            CameraRelativeLightToggle.style.paddingRight = 10f;
-            CameraRelativeLightToggle.style.paddingTop = 4f;
-            CameraRelativeLightToggle.style.paddingBottom = 4f;
-            ApplyRadius(CameraRelativeLightToggle, 8f);
-
             cameraRelativeLightState = new Label("Off")
             {
                 name = ViewerShellElementNames.CameraRelativeLightState,
                 pickingMode = PickingMode.Ignore
             };
-            cameraRelativeLightState.style.position = Position.Absolute;
-            cameraRelativeLightState.style.right = 10f;
-            cameraRelativeLightState.style.top = 6f;
-            cameraRelativeLightState.style.unityFontStyleAndWeight =
-                FontStyle.Bold;
-            CameraRelativeLightToggle.Add(cameraRelativeLightState);
+            DeucarianTextControlStyle.ConfigureToggle(
+                CameraRelativeLightToggle, cameraRelativeLightState);
+            colorFeedback = new DeucarianControlFeedback(animationHost, ColorFaithfulButton, shouldAnimate);
+            realisticFeedback = new DeucarianControlFeedback(animationHost, RealisticButton, shouldAnimate);
+            lightFeedback = new DeucarianControlFeedback(animationHost, CameraRelativeLightToggle, shouldAnimate);
 
             QualityNotice = new Label(
                 "Full viewer effects are disabled for the active viewer quality tier.")
@@ -135,42 +132,12 @@ namespace Deucarian.ViewerShell
                 .ResolveTextColor(theme, context);
             Color secondary = DeucarianControlIslandVisualStyle
                 .ResolveMutedTextColor(theme, context);
-            Color normal = DeucarianControlIslandTheme.ResolveColor(
-                theme,
-                DeucarianBuiltinColorRoleIds.UiNormal,
-                Color.clear);
-            Color selected = DeucarianControlIslandTheme.ResolveColor(
-                theme,
-                DeucarianBuiltinColorRoleIds.UiSelected,
-                normal);
-            Color border = DeucarianGlassPanelStyle.ResolveBorder(
-                theme,
-                context);
-
             heading.style.color = primary;
             renderingLabel.style.color = secondary;
-            CameraRelativeLightToggle.style.color = primary;
-            cameraRelativeLightState.style.color = primary;
-            CameraRelativeLightToggle.style.backgroundColor =
-                CurrentSnapshot.CameraRelativeLight ? selected : normal;
-            SetBorder(CameraRelativeLightToggle, border, 1f);
             QualityNotice.style.color = secondary;
-            ApplyModeButton(
-                ColorFaithfulButton,
-                CurrentSnapshot.RenderingMode ==
-                    ViewerRenderingMode.ColorFaithful,
-                primary,
-                normal,
-                selected,
-                border);
-            ApplyModeButton(
-                RealisticButton,
-                CurrentSnapshot.RenderingMode ==
-                    ViewerRenderingMode.Realistic,
-                primary,
-                normal,
-                selected,
-                border);
+            colorFeedback.ApplyTheme(theme, context);
+            realisticFeedback.ApplyTheme(theme, context);
+            lightFeedback.ApplyTheme(theme, context);
         }
 
         public void Dispose()
@@ -185,6 +152,9 @@ namespace Deucarian.ViewerShell
             CameraRelativeLightToggle.UnregisterValueChangedCallback(
                 OnCameraRelativeLightChanged);
             controller.SettingsChanged -= OnSettingsChanged;
+            colorFeedback.Dispose();
+            realisticFeedback.Dispose();
+            lightFeedback.Dispose();
             PresentationChanged = null;
             disposed = true;
         }
@@ -225,6 +195,9 @@ namespace Deucarian.ViewerShell
             QualityNotice.style.display = snapshot.EffectsActive
                 ? DisplayStyle.None
                 : DisplayStyle.Flex;
+            colorFeedback.SetSelected(snapshot.RenderingMode == ViewerRenderingMode.ColorFaithful);
+            realisticFeedback.SetSelected(snapshot.RenderingMode == ViewerRenderingMode.Realistic);
+            lightFeedback.SetSelected(snapshot.CameraRelativeLight);
             PresentationChanged?.Invoke();
         }
 
@@ -250,52 +223,8 @@ namespace Deucarian.ViewerShell
         {
             Button button = new Button { name = name, text = text };
             button.style.flexGrow = 1f;
-            button.style.height = 36f;
-            button.style.minHeight = 36f;
-            button.style.paddingLeft = 8f;
-            button.style.paddingRight = 8f;
-            button.style.fontSize = 12f;
-            button.style.unityTextAlign = TextAnchor.MiddleCenter;
-            ApplyRadius(button, 8f);
+            button.style.minWidth = 0f;
             return button;
-        }
-
-        private static void ApplyModeButton(
-            Button button,
-            bool selected,
-            Color text,
-            Color normal,
-            Color selectedColor,
-            Color border)
-        {
-            button.style.color = text;
-            button.style.backgroundColor = selected
-                ? selectedColor
-                : normal;
-            SetBorder(button, border, 1f);
-        }
-
-        private static void ApplyRadius(VisualElement element, float radius)
-        {
-            element.style.borderTopLeftRadius = radius;
-            element.style.borderTopRightRadius = radius;
-            element.style.borderBottomLeftRadius = radius;
-            element.style.borderBottomRightRadius = radius;
-        }
-
-        private static void SetBorder(
-            VisualElement element,
-            Color color,
-            float width)
-        {
-            element.style.borderLeftWidth = width;
-            element.style.borderRightWidth = width;
-            element.style.borderTopWidth = width;
-            element.style.borderBottomWidth = width;
-            element.style.borderLeftColor = color;
-            element.style.borderRightColor = color;
-            element.style.borderTopColor = color;
-            element.style.borderBottomColor = color;
         }
 
         private void ThrowIfDisposed()

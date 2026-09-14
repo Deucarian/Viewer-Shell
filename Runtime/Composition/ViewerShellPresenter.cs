@@ -97,7 +97,7 @@ namespace Deucarian.ViewerShell
                     profile.DefaultDiagnosticsText)
                 : null;
             displaySettingsView = new ViewerDisplaySettingsView(
-                renderingController);
+                renderingController, this, configuration.ResolveShouldAnimate);
             displaySettingsView.PresentationChanged +=
                 RefreshMenuPresentation;
             BuildMenus();

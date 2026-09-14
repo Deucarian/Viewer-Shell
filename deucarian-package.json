@@ -15,7 +15,6 @@
     "Deucarian.ViewerShell.Tests.EditMode"
   ],
   "requiredDependencies": [
-    "com.deucarian.common",
     "com.deucarian.theming",
     "com.deucarian.ui",
     "com.deucarian.viewer-rendering",
