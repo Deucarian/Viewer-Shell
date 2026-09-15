@@ -56,10 +56,10 @@ namespace Deucarian.ViewerShell.Tests
                 "\"unity\": \"6000.0\"",
                 packageJson);
             StringAssert.Contains(
-                "\"com.deucarian.theming\": \"1.0.5\"",
+                "\"com.deucarian.theming\": \"1.11.0\"",
                 packageJson);
             StringAssert.Contains(
-                "\"com.deucarian.ui\": \"0.2.7\"",
+                "\"com.deucarian.ui\": \"0.5.0\"",
                 packageJson);
             StringAssert.Contains(
                 "\"com.deucarian.viewer-rendering\": \"0.1.0\"",
